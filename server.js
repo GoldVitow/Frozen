@@ -1,3 +1,5 @@
+const https = require('https');
+const path = require('path');
 const express = require('express');
 const fs = require('fs');
 const WebSocket = require('ws');
@@ -17,11 +19,13 @@ if (!fs.existsSync(DATA_FILE)) {
 
 app.use(express.static('public'));
 
-const server = app.listen(PORT, () => {
-    console.log(`Сервер запущен на http://localhost:${PORT}`);
-});
+// Замените создание сервера на:
+const server = https.createServer({
+    key: fs.readFileSync('path/to/privkey.pem'), // Путь к SSL-ключу
+    cert: fs.readFileSync('path/to/fullchain.pem') // Путь к SSL-сертификату
+}, app);
 
-// WebSocket сервер
+// WebSocket сервер должен использовать тот же HTTPS-сервер
 const wss = new WebSocket.Server({ server });
 
 // Проверка и инкремент
