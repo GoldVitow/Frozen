@@ -74,3 +74,9 @@ function readData() {
 function saveData(data) {
     fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 }
+
+// Добавляем этот endpoint в server.js
+app.get('/api/frozen', (req, res) => {
+    const data = readData();
+    res.json({ frozen: data.frozen });
+});
