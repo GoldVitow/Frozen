@@ -4,7 +4,7 @@ let ws;
 
 // Подключение к WebSocket
 function connectWebSocket() {
-   ws = new WebSocket(`ws://${window.location.host}`);
+   ws = new WebSocket(`wss://${window.location.host}`);
 
    ws.onmessage = (event) => {
          const data = JSON.parse(event.data);
