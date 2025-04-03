@@ -4,7 +4,9 @@ let ws;
 
 // Подключение к WebSocket
 function connectWebSocket() {
-   ws = new WebSocket(`wss://${window.location.host}`);
+   // Определяем протокол автоматически
+    const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+    ws = new WebSocket(protocol + window.location.host);
 
    ws.onmessage = (event) => {
          const data = JSON.parse(event.data);
